@@ -42,7 +42,7 @@ RockIt's syntax is almost identical to that of existing Markov logic systems suc
 
 If you want to use rockIt you have several possibilities:
 
-1. Access RockIt via our web interface. Since you merely have to upload your MLN files, this is probably the best way to get started and to test how well RockIt can process your MLNs.
+1. Access RockIt via our [web interface](http://executor.informatik.uni-mannheim.de/systems/rockit/). Since you merely have to upload your MLN files, this is probably the best way to get started and to test how well RockIt can process your MLNs.
 2. Install the binaries on your machine
 3. There are also installations instructions available
 4. Alternatively, you can download the source code. The main class is located in com.googlecode.rockit.app.Main.
