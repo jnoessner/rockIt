@@ -1,7 +1,8 @@
 # RockIt: A query engine for Markov logic
 
 RockIt answers maximum a-posteriori (MAP) queries (also called MPE queries), marginal queries (also called probability queries), and learns the weights of Markov logic networks. Markov logic is a combination of Markov networks and first-order logic. RockIt is currently the fastest MAP query engine for Markov logic networks.
-RockIt is also available as a web service. All you have to do is upload your MLN files.
+
+**RockIt is also available as a [web service](http://executor.informatik.uni-mannheim.de/systems/rockit/). All you have to do is upload your MLN files.**
 
 ### Maximum A-Posteriori (MAP) Inference
 
