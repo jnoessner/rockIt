@@ -1,0 +1,10 @@
+// Hidden
+box(x)
+red(x)
+
+// Observed
+*redConf(x,float_)
+
+2.7 !red(x) v box(x) // ~90%
+conf: !redConf(x,conf) v red(x)
+box(x) v box(y).

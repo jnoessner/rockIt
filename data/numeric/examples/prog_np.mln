@@ -1,0 +1,4 @@
+*sumP(int_,int_,int_,float_)
+sum(x,y,z) := [x+y == z]
+
+conf: !sumP(x,y,z,conf) v sum(x,y,z)

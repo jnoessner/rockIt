@@ -1,0 +1,10 @@
+*Smokes(Person)
+Friends(Person,Person)
+
+1 Friends(x,y) v Smokes("B")
+
+// should return all groundings of "Friends"
+// Friends("A", "A")
+// Friends("A", "B")
+// Friends("A", "A")
+// Friends("B", "B")

@@ -1,0 +1,4 @@
+speed("WW","3.0", "0.0")
+lightBreak("0.0")
+lightBreak("1.0")
+lightBreak("2.0")

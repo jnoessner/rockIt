@@ -1,0 +1,19 @@
+*absSumW(int_,int_,float_)
+abs(x,y) := fn:abs(x+y) > 0
+conf: !absSumW(x,y,conf) v abs(x,y)
+
+*sqrtW(int_,float_)
+sqrt(x) := fn:sqrt(x) > 10
+conf: !sqrtW(x,conf) v sqrt(x)
+
+*minW(int_, int_, float_)
+*maxW(int_, int_, float_)
+min(x,y) := fn:min(x+y,y) < fn:max(x,y)
+max(x,y) := fn:min(x,y) < fn:max(x,y)
+conf: !minW(x,y,conf) v min(x,y)
+conf: !maxW(x,y,conf) v max(x,y)
+
+
+*xSumW(int_, int_, float_)
+xSum(x,y) := fn:min(x,y) + fn:min(x,y) - fn:max(x,y)  < fn:max(x,y)
+conf: !xSumW(x,y,conf) v xSum(x,y)

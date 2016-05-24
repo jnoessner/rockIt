@@ -1,0 +1,52 @@
+
+//predicates
+* prop1(Prop1)
+* prop2(Prop2)
+* rangesup1(Prop1, Class1)
+* rangedis2(Prop2, Class2)
+* domainsup2(Prop2, Class2)
+* subsumes2(Class2, Class2)
+* domainsup1(Prop1, Class1)
+* pmapConfidence(Prop1, Prop2, float_ )
+* subsumes1(Class1, Class1)
+* domaindis2(Prop2, Class2)
+* domaindis1(Prop1, Class1)
+* class1(Class1)
+* disjoint1(Class1, Class1)
+* class2(Class2)
+* disjoint2(Class2, Class2)
+* rangesup2(Prop2, Class2)
+* domainsub1(Prop1, Class1)
+* domainsub2(Prop2, Class2)
+* rangesub1(Prop1, Class1)
+* rangesub2(Prop2, Class2)
+* cmapConfidence(Class1, Class2, float_ )
+* rangedis1(Prop1, Class1)
+cmap(Class1, Class2)
+pmap(Prop1, Prop2)
+
+//formulars
+cconf:  !cmapConfidence(c1, c2, cconf) v  cmap(c1, c2)
+cconf:  !pmapConfidence(p1, p2, cconf) v  pmap(p1, p2)
+|c2| !class1(c1) v !class2(c2) v cmap(c1, c2) <= 1
+|c1| !class1(c1) v !class2(c2) v cmap(c1, c2) <= 1
+|p2| !prop1(p1) v !prop2(p2) v pmap(p1, p2) <= 1
+|p1| !prop1(p1) v !prop2(p2) v pmap(p1, p2) <= 1
+!subsumes1(c1, b1) v !disjoint2(c2, b2) v !cmap(c1, c2) v !cmap(b1, b2).
+!subsumes2(c2, b2) v !disjoint1(c1, b1) v !cmap(c1, c2) v !cmap(b1, b2).
+!domainsub1(p1, c1) v !domaindis2(p2, c2) v !cmap(c1, c2) v !pmap(p1, p2).
+!domainsup1(p1, c1) v !domaindis2(p2, c2) v !cmap(c1, c2) v !pmap(p1, p2).
+!domainsub2(p2, c2) v !domaindis1(p1, c1) v !cmap(c1, c2) v !pmap(p1, p2).
+!domainsup2(p2, c2) v !domaindis1(p1, c1) v !cmap(c1, c2) v !pmap(p1, p2).
+!rangesub1(p1, c1) v !rangedis2(p2, c2) v !cmap(c1, c2) v !pmap(p1, p2).
+!rangesup1(p1, c1) v !rangedis2(p2, c2) v !cmap(c1, c2) v !pmap(p1, p2).
+!rangesub2(p2, c2) v !rangedis1(p1, c1) v !cmap(c1, c2) v !pmap(p1, p2).
+!rangesup2(p2, c2) v !rangedis1(p1, c1) v !cmap(c1, c2) v !pmap(p1, p2).
+05  !subsumes1(c1, b1) v subsumes2(c2, b2) v !cmapConfidence(c1, c2, cconf) v !cmapConfidence(b1, b2, cconf2) v !cmap(c1, c2) v !cmap(b1, b2)
+05  subsumes1(c1, b1) v !subsumes2(c2, b2) v !cmapConfidence(c1, c2, cconf) v !cmapConfidence(b1, b2, cconf2) v !cmap(c1, c2) v !cmap(b1, b2)
+025  !domainsub1(p1, c1) v domainsub2(p2, c2) v !cmapConfidence(c1, c2, cconf) v !pmapConfidence(p1, p2, cconf2) v !pmap(p1, p2) v !cmap(c1, c2)
+025  domainsub1(p1, c1) v !domainsub2(p2, c2) v !cmapConfidence(c1, c2, cconf) v !pmapConfidence(p1, p2, cconf2) v !pmap(p1, p2) v !cmap(c1, c2)
+025  !rangesub1(p1, c1) v rangesub2(p2, c2) v !cmapConfidence(c1, c2, cconf) v !pmapConfidence(p1, p2, cconf2) v !pmap(p1, p2) v !cmap(c1, c2)
+025  rangesub1(p1, c1) v !rangesub2(p2, c2) v !cmapConfidence(c1, c2, cconf) v !pmapConfidence(p1, p2, cconf2) v !pmap(p1, p2) v !cmap(c1, c2)
+
+

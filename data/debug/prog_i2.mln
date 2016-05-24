@@ -1,0 +1,9 @@
+*Smokes(Person)
+Friends(Person,Person)
+
+// 1 Friends(x, "A")
+-1 !Friends(x, "A")
+
+// should return: 
+// Friends("A","A")
+// Friends("B","A")

@@ -1,0 +1,3 @@
+quadPW("T2-1", "birthYear", "c", "1500", 0.5)
+quadPW("T2-1", "deathYear", "c", "1599", 0.5)
+quadPW("T2-1", "deathYear", "w", "1601", 0.99)

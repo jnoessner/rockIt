@@ -1,0 +1,19 @@
+*val(int_)
+// valX(int_)
+// valY(int_)
+
+sum(int_)
+test(int_)
+//sumX(int_)
+//abc(int_, int_)
+
+!val(x) v sum([x+1]).
+!sum(x) v test(x).
+
+//!val(x) v !val(y) v sum([x+1]).
+//!val(x) v !val(y) v sum(x).
+//!sum(x) v sumX(x).
+//!sum(x) v abc([x-3], [x+3]).
+
+// !val(x) v valX(x).
+// !valX(x) v valY(x).

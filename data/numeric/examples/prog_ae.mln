@@ -1,0 +1,4 @@
+*val(int_)
+sum(int_,int_,int_)
+
+!val(x) v !val(y) v sum(x, y, [x+y]).

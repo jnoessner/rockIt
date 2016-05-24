@@ -1,0 +1,4 @@
+speed(x, int, t)
+lightBreak(t)
+
+!speed(x, s, t) v !lightBreak(t) v speed(x, [max(0,s-10)], [t+1]).

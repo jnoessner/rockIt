@@ -1,0 +1,50 @@
+// numeric predicates
+dE(int,int,int)
+dM(int,int,int)
+dM_abs(int,int,int)
+dL(int,int,int)
+dL_abs(int,int,int)
+
+// facts
+triple(r,r,r)
+quadP(r,r,r,int)
+quadI(r,r,r,int,int)
+
+*tripleW(r,r,r,float_)
+*quadPW(r,r,r,int,float_)
+*quadIW(r,r,r,int,int,float_)
+
+weight: !tripleW(s,p,o,weight) v triple(s,p,o)
+weight: !quadPW(s,p,o,t,weight) v quadP(s,p,o,t)
+weight: !quadIW(s,p,o,i1,i2,weight) v quadI(s,p,o,i1,i2)
+
+//-0.0001 triple(s,p,o)
+//-0.0001 quadP(s,p,o,tp)
+//-0.0001 quadI(s,p,o,lb,up)
+
+// rules and constraints
+// 0 - birth date before death date
+!quadP(x, "birthYear", o1, t1) v !quadP(x, "deathYear", o2, t2) v dM(t1,t2,"-1").
+
+// 1: at most one birth year/death year
+!quadP(x, "birthYear", o1, t1) v !quadP(x, "birthYear", o2, t2) v dE(t1,t2,"0").
+!quadP(x, "deathYear", o1, t1) v !quadP(x, "deathYear", o2, t2) v dE(t1,t2,"0").
+
+// 2 - difference between between death year and birth year is at most 100 year
+!quadP(x, "birthYear", o1, tb) v !quadP(x, "deathYear", o2, td) v dM(td,tb,"100").
+
+// 3 - infer the living period of an an entity
+!quadP(x, "birthYear", o1, tb) v !quadP(x, "deathYear", o2, td) v quadI(x,"livingPeriod","inferred",tb,td).
+
+// 4 - soft rules using living period
+numericRange(int,int,int,int)
+// 0.2 !quadI(x,"livingPeriod",o,tb,td) v numericRange(td,tb,"70","85")
+0.1 !quadI(x,"livingPeriod",o,tb,td) v dL(td,tb,"10")
+0.5 !quadI(x,"livingPeriod",o,tb,td) v dL(td,tb,"50")
+0.1 !quadI(x,"livingPeriod",o,tb,td) v dL(td,tb,"70")
+-0.1 !quadI(x,"livingPeriod",o,tb,td) v dL(td,tb,"85")
+
+!quadI(x,"livingPeriod",o,tb,td) v quadP(x, "birthYear", "nl", tb).
+!quadI(x,"livingPeriod",o,tb,td) v quadP(x, "deathYear", "nl", td).
+
+//numericRange(x,y,lb,ub) := dl(x,y,lb) dM(x,y, ub) // lb <= (x-y) <= ub

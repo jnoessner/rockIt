@@ -1,0 +1,18 @@
+*sumP(int_,int_,int_,float_)
+*diffP(int_,int_,int_,float_)
+*divP(int_,int_,int_,float_)
+*mulP(int_,int_,int_,float_)
+*combinationP(int_,int_,int_,int_,int_,float_)
+
+
+sum(x,y,z) := [x+y == z]
+diff(x,y,z) := [x-y == z]
+mul(x,y,z) := [x*y == z]
+div(x,y,z) := [x/y == z]
+combination(a,b,c,d,e) := [(a+b+c+d+e > 0) && (a > b+c) && (d+e < a+b)]
+
+conf: !sumP(x,y,z,conf) v sum(x,y,z)
+conf: !diffP(x,y,z,conf) v diff(x,y,z)
+conf: !divP(x,y,z,conf) v div(x,y,z)
+conf: !mulP(x,y,z,conf) v mul(x,y,z)
+conf: !combinationP(a,b,c,d,e,conf) v combination(a,b,c,d,e)

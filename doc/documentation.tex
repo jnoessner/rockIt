@@ -1,0 +1,164 @@
+% do not change these two lines (this is a hard requirement
+% there is one exception: you might replace oneside by twoside in case you deliver 
+% the printed version in the accordant format
+\documentclass[11pt,titlepage,oneside,openany]{book}
+\usepackage{times}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amsmath}
+%\usepackage{amssymb}
+\usepackage{url}
+\usepackage{listings}
+
+
+
+\usepackage{ntheorem}
+
+% \usepackage{paralist}
+\usepackage{tabularx}
+
+% this packaes are useful for nice algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% well, when your work is concerned with definitions, proposition and so on, we suggest this
+% feel free to add Corrolary, Theorem or whatever you need
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+
+% its always useful to have some shortcuts (some are specific for algorithms
+% if you do not like your formating you can change it here (instead of scanning through the whole text)
+
+ \lstset{
+   basicstyle=\ttfamily,
+   keywordstyle=\bfseries\ttfamily{orange},
+   stringstyle=\color{green}\ttfamily,
+   commentstyle=\color{middlegray}\ttfamily,
+%   emph={square}, 
+%   emphstyle=\color{blue}\texttt,
+%   emph={[2]root,base},
+%   emphstyle={[2]\color{yac}\texttt},
+%   showstringspaces=false,
+%   flexiblecolumns=false,
+%   tabsize=2,
+%   numbers=left,
+%   numberstyle=\tiny,
+%   numberblanklines=false,
+%   stepnumber=1,
+%   numbersep=10pt,
+%   xleftmargin=15pt
+ }
+
+
+
+\begin{document}
+
+\pagenumbering{roman}
+% lets go for the title page, something like this should be okay
+\begin{titlepage}
+	\vspace*{2cm}
+  \begin{center}
+   {\Large RockIt: Numerical Extension\\}
+   \vspace{2cm} 
+   {Documentation\\}
+   \vspace{2cm}
+   {written by\\
+    Jakob Huber \\
+    jakob @informatik.uni-mannheim.de\\
+   }
+   \vspace{1cm} 
+   {Data \& Web Science Group\\
+    University of Mannheim\\} \vspace{2cm}
+   {February 2015}
+  \end{center}
+\end{titlepage} 
+
+% no lets make some add some table of contents
+%\tableofcontents
+
+%\listofalgorithms
+
+%\listoffigures
+
+%\listoftables
+
+% evntuelly you might add something like this
+% \listtheorems{definition}
+% \listtheorems{proposition}
+
+%\newpage
+
+
+% okay, start new numbering ... here is where it really starts
+\pagenumbering{arabic}
+
+%-------- Numerical Extension (start)
+\chapter{Numerical Extension}
+The branch \texttt{n-ext}\footnote{\url{https://rockit.googlecode.com/svn/branches/n-ext}} extends \textsc{RockIt} with features that are useful in the concrete domain of numbers. In particular, the extensions provides support for defining predicates whose truth values depends on a boolean expression that is composed of algebraic expressions. It also allows to replace simple variables with an algebraic expression that is used to compute the actual ground value of a variable.\\
+
+\noindent We use \textsc{EvalEx}\footnote{\url{https://github.com/uklimaschewski/EvalEx}} in order to compute the values of Boolean expressions and algebraic expressions. Hence, all operators and functions of \textsc{EvalEx} can be used to state an expression. However, all expressions need to be bracketed:
+
+\begin{center}
+\texttt{\textbf{[}} \textit{expression} \texttt{\textbf{]}}
+\end{center}
+
+Note that the extension is only tested with MAP inference and MLNs containing hard- and soft formulas, but no cardinality formulas.
+
+\section{Numerical Predicates}
+The truth value of \textit{numerical predicates} depend on boolean expressions that are composed of algebraic expressions. Hence, all variables of such predicates need to be numerical (e.g. integer or double). A Boolean expression is associated with predicate using the character sequence \texttt{:=}. The predicate definition for \textit{numerical predicates} does not state the type of the different variables as they are implicitly considered as numerical predicates (e.g. double). The predicates can be viewed as evidence as their truth values is observed.
+
+We provide an example that uses \textit{numerical predicates} in Listing~\ref{lst:n-ext-np-mln}, \ref{lst:n-ext-np-db} and \ref{lst:n-ext-np-map}. The third variable of the predicate \texttt{sumP} respectively \texttt{sum} should be the sum of the first two variables in order that the grounded predicate is true. Hence, we associate the respective constraint with \texttt{[x+y == z]} with the predicates \texttt{sum}. The evidence contains two groundings of the predicate \texttt{sumP} which is the weighted version of the predicate \texttt{sum}. The MAP state contains only one grounding as the other one does not fulfill the constraint of \texttt{sum}.
+
+\begin{lstlisting}[caption=Example for numerical predicates: prog.mln,label=lst:n-ext-np-mln]
+   *sumP(n, n, n, float_)
+   sum(x,y,z) := [x+y == z]
+
+   conf: !sumP(x,y,z,conf) v sum(x,y,z)
+\end{lstlisting} 
+
+\begin{lstlisting}[caption=Example for numerical predicates: evidence.db,label=lst:n-ext-np-db]
+   sumP("1.0", "1.0", "2.0", 1.0)
+   sumP("1.0", "1.0", "1.0", 1.0)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Example for numerical predicates: out.db (MAP state),label=lst:n-ext-np-map]
+   sum("1.0", "1.0", "2.0")
+\end{lstlisting}
+
+\section{Algebraic Expressions for Variables}
+The second part of the extension allows to replace a variable with an \textit{algebraic expressions} which allows to infer new numbers based on numerical values occurring as ground values of other variables in the formula.
+
+We provide an example that uses \textit{algebraic expressions} in Listing~\ref{lst:n-ext-ae-mln}, \ref{lst:n-ext-ae-db} and \ref{lst:n-ext-ae-map}. The example computes all sums of the numerical values (predicate \texttt{val}) given as evidence. The predicate \texttt{sum} states the sum of the first variables at its third position.
+
+\begin{lstlisting}[caption=Example for algebraic expressions: prog.mln,label=lst:n-ext-ae-mln]
+   *val(int_)
+   sum(int_,int_,int_)
+
+   !val(x) v !val(y) v sum(x, y, [x+y]).
+\end{lstlisting} 
+
+\begin{lstlisting}[caption=Example using algebraic expressions: evidence.mln,label=lst:n-ext-ae-db]
+   val("1.0")
+   val("2.0")
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Example for algebraic expressions: out.db (MAP state),label=lst:n-ext-ae-map]
+   sum("1.0", "1.0", "2.0")
+   sum("1.0", "2.0", "3.0")
+   sum("2.0", "1.0", "3.0")
+   sum("2.0", "2.0", "4.0")
+\end{lstlisting}
+
+%-------- Numerical Extension (end)
+
+\newpage
+
+
+\pagestyle{empty}
+
+\end{document}

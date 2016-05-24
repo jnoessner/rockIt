@@ -1,0 +1,18 @@
+*ltp(int_,int_,float_)
+*gtp(int_,int_,float_)
+*ltpE(int_,int_,float_)
+*gtpE(int_,int_,float_)
+*eqp(int_,int_,float_)
+
+lt(x,y) := x < y
+gt(x,y) := x > y
+ltE(x,y) := x <= y
+gtE(x,y) := x >= y
+eq(x,y) := x == y
+
+
+conf: !ltp(x,y,conf) v lt(x,y)
+conf: !gtp(x,y,conf) v gt(x,y)
+conf: !ltpE(x,y,conf) v ltE(x,y)
+conf: !gtpE(x,y,conf) v gtE(x,y)
+conf: !eqp(x,y,conf) v eq(x,y)

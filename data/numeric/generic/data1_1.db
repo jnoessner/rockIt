@@ -1,0 +1,37 @@
+//quadPW("Jack", "deathYear", "year 1985", "1875", 0.9)
+//quadPW("Jack", "birthYear", "year 1900", "1900", 0.76)
+//quadPW("Jack", "deathYear", "year 1975", "1975", 0.25)
+//quadPW("Jack", "deathYear", "year 2100", "2100", 1.0)
+
+
+// quadIW("Jack", "livingPeriod", "year 2100", "1990", "2010", 1.0)
+// quadI("Jack", "livingPeriod", "year 2100", "1990", "2010")
+
+// 0 - birth date before death date
+quadPW("T0", "deathYear", "w", "800", 0.5) // w
+quadPW("T0", "birthYear", "c", "900", 1.0)
+quadPW("T0", "deathYear", "c", "950", 0.5)
+
+// 1 - at most one birth year and one death year
+quadPW("T1", "birthYear", "c/w", "1900", 1.0)
+quadPW("T1", "birthYear", "c/w", "1901", 1.0)
+quadPW("T1", "deathYear", "c/w", "1949", 0.5)
+quadPW("T1", "deathYear", "c/w", "1950", 0.5)
+
+
+// 2 - birth date -> deate date at most 100 year
+quadPW("T2-1", "birthYear", "c", "1500", 0.5)
+quadPW("T2-1", "deathYear", "c", "1599", 0.5)
+quadPW("T2-1", "deathYear", "w", "1601", 0.99)
+
+quadPW("T2-2", "birthYear", "w", "1900", 0.2)
+quadPW("T2-2", "deathYear", "c", "1000", 0.4)
+
+// 3 - infer living period
+quadPW("T3", "birthYear", "c", "1900", 0.5)
+quadPW("T3", "deathYear", "c", "2000", 0.5)
+
+// 4 - soft rules
+quadPW("T4", "birthYear", "c", "0", 1.0)
+quadPW("T4", "deathYear", "c", "75", 1.0)
+quadPW("T4", "deathYear", "c", "90", 0.9)

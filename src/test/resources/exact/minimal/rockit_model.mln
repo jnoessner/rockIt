@@ -1,0 +1,9 @@
+// Hidden
+box(x)
+red(x)
+
+// Observed
+*redConf(x,float_)
+
+!red(x) v box(x).
+conf: !redConf(x,conf) v red(x)

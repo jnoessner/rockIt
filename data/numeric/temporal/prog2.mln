@@ -1,0 +1,6 @@
+//*quadIW(r,r,r,int,int,float_)
+//weight: !quadIW(s,p,o,i1,i2,weight) v quadI(s,p,o,i1,i2)
+
+dM_abs(int,int,int)
+quadI(r,r,r,int,int)
+!quadI(x,"livingPeriod",o,tb,td) v dM_abs(tb,td, "abc").

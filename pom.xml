@@ -1,0 +1,220 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.googlecode.rockit</groupId>
+    <artifactId>rockit</artifactId>
+    <version>0.5.276_n-ext-v0.1</version>
+    <packaging>jar</packaging>
+
+    <name>rockit</name>
+    <description>A fast Markov logic Solver</description>
+    <url>http://code.google.com/p/rockit/</url>
+    
+    <scm>
+      <url>http://svn.rockit.googlecode.com/svn/trunk/rockit</url>
+    </scm>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+     <dependency>
+          <groupId>org.antlr</groupId>
+          <artifactId>antlr</artifactId>
+          <version>3.4</version>
+     </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.18</version>
+        </dependency>
+        <!-- 
+        This artifact has to be installed manually. Use 'rockit' as version (not the gurobi version).
+        Use the following command (one line).
+        
+        mvn install:install-file  -Dfile=path/to/your/rockit/lib/rockit.jar 
+                          -DgroupId=com.gurobi 
+                          -DartifactId=gurobi 
+                          -Dversion=rockit 
+                          -Dpackaging=jar 
+         -->
+        <dependency>
+            <groupId>com.gurobi</groupId>
+            <artifactId>gurobi</artifactId>
+            <version>rockit</version>
+        </dependency>
+<!--         <dependency>
+            <groupId>com.cplex</groupId>
+            <artifactId>cplex</artifactId>
+            <version>rockit</version>
+        </dependency> -->
+        <dependency>
+			<groupId>args4j</groupId>
+			<artifactId>args4j</artifactId>
+			<version>2.0.16</version>
+		</dependency>
+
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>lski</id>
+            <url>https://breda.informatik.uni-mannheim.de/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <name>LSKI Snapshot Repository</name>
+            <id>lski-snapshots</id>
+            <url>https://breda.informatik.uni-mannheim.de/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <name>LSKI Repository</name>
+            <id>lski</id>
+            <url>https://breda.informatik.uni-mannheim.de/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.googlecode.rockit.app.Main</mainClass>
+                            <packageName>com.googlecode.rockit.app</packageName>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                        <manifestEntries>
+                            <mode>development</mode>
+                            <url>${project.url}</url>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+			    <groupId>org.antlr</groupId>
+			    <artifactId>antlr3-maven-plugin</artifactId>
+			    <version>3.4</version>
+			    <executions>
+			        <execution>
+			        <configuration>
+    <outputDirectory>src/main/java</outputDirectory>
+</configuration>
+			            <goals>
+			                <goal>antlr</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									org.apache.maven.plugins
+        								</groupId>
+        								<artifactId>
+        									maven-dependency-plugin
+        								</artifactId>
+        								<versionRange>
+        									[2.1,)
+        								</versionRange>
+        								<goals>
+        									<goal>
+        										copy-dependencies
+        									</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
+    </build>
+</project>
