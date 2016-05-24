@@ -14,8 +14,8 @@ constraints and variables in the ILP translation and makes symmetries more expli
 Internally, RockIt utilizes in-memory databases from MySQL and the integer linear solver Gurobi 
 (a free academic license is available).
 
-The theoretical foundations of the MAP inference engine and some experimental results are presented in the paper RockIt: 
-Exploiting Parallelism and Symmetry for MAP Inference in Statistical Relational Models that appeared in the proceedings of AAAI 2013.
+The theoretical foundations of the MAP inference engine and some experimental results are presented in the paper 
+> [RockIt: Exploiting Parallelism and Symmetry for MAP Inference in Statistical Relational Models that appeared in the proceedings of AAAI 2013](https://www.aaai.org/ocs/index.php/WS/AAAIW13/paper/download/7049/6639).
 
 ### Marginal Inference
 
