@@ -61,4 +61,4 @@ So if you have any problems or questions concerning rockIt just ask!
 
 ### Feedback
 
-If you use Rockit for your project and it has been helpful (or not) we would be happy to hear about it. If you use RockIt in your research, please cite us! We would also be happy if you could send us a copy of any published work that uses rockIt.
+If you use Rockit for your project and it has been helpful (or not) we would be happy to hear about it. If you use RockIt in your research, please [cite us](http://dblp.uni-trier.de/rec/bibtex/conf/aaai/NoessnerNS13)! We would also be happy if you could send us a copy of any published work that uses rockIt.
